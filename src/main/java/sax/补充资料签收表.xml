@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jatools Class="jatools.ReportDocument" Name="jatools report template">
+	<VariableContext>
+		<Item0 Class="Parameter" Name="fprojectName">
+			<Name>fprojectName</Name>
+			<Type1>java.lang.String</Type1>
+			<DefaultValue>项目名称</DefaultValue>
+		</Item0>
+		<Item1 Class="Parameter" Name="forganize">
+			<Name>forganize</Name>
+			<Type1>java.lang.String</Type1>
+			<DefaultValue>资料提交单位</DefaultValue>
+		</Item1>
+		<Item2 Class="Parameter" Name="submitDate">
+			<Name>submitDate</Name>
+			<Type1>java.sql.Date</Type1>
+			<DefaultValue>提交日期</DefaultValue>
+		</Item2>
+	</VariableContext>
+	<Page>
+		<Name>panel</Name>
+		<Children ItemClass="PagePanel">
+			<Item0>
+				<Name>header</Name>
+				<Width>719</Width>
+				<Height>221</Height>
+				<Children ItemClass="Table">
+					<Item0>
+						<X>54</X>
+						<Y>60</Y>
+						<Children>
+							<Item0 Class="Label">
+								<Text>共</Text>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<HorizontalAlignment>2</HorizontalAlignment>
+								<VerticalAlignment>2</VerticalAlignment>
+								<Cell>
+									<Row>3</Row>
+									<Col>3</Col>
+								</Cell>
+							</Item0>
+							<Item1 Class="Text">
+								<Variable>=$totalPageNumber</Variable>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<HorizontalAlignment>1</HorizontalAlignment>
+								<VerticalAlignment>2</VerticalAlignment>
+								<Cell>
+									<Row>3</Row>
+									<Col>4</Col>
+								</Cell>
+							</Item1>
+							<Item2 Class="Label">
+								<Text>页</Text>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<VerticalAlignment>2</VerticalAlignment>
+								<Cell>
+									<Row>3</Row>
+									<Col>5</Col>
+								</Cell>
+							</Item2>
+							<Item3 Class="Label">
+								<Text>提交日期：</Text>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<HorizontalAlignment>1</HorizontalAlignment>
+								<VerticalAlignment>2</VerticalAlignment>
+								<Cell>
+									<Row>3</Row>
+									<Col>0</Col>
+								</Cell>
+							</Item3>
+							<Item4 Class="Text">
+								<Variable>=submitDate</Variable>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<VerticalAlignment>2</VerticalAlignment>
+								<Format Class="DateFormat">
+									<FormatStyle>1</FormatStyle>
+								</Format>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>3</Row>
+									<Col>1</Col>
+								</Cell>
+							</Item4>
+							<Item5 Class="Label">
+								<Text>评审工作底稿之四</Text>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>1</Style>
+									<Size>14</Size>
+								</Font>
+								<VerticalAlignment>2</VerticalAlignment>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>0</Row>
+									<Col>0</Col>
+									<ColSpan>6</ColSpan>
+								</Cell>
+							</Item5>
+							<Item6 Class="Label">
+								<Text>补充资料签收表</Text>
+								<Font>
+									<Face>宋体</Face>
+									<Style>1</Style>
+									<Size>24</Size>
+								</Font>
+								<HorizontalAlignment>1</HorizontalAlignment>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>2</Row>
+									<Col>0</Col>
+									<ColSpan>6</ColSpan>
+								</Cell>
+							</Item6>
+							<Item7 Class="Text">
+								<Variable>="第 "+$pageIndex+" 页"</Variable>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<HorizontalAlignment>2</HorizontalAlignment>
+								<VerticalAlignment>2</VerticalAlignment>
+								<Cell>
+									<Row>3</Row>
+									<Col>2</Col>
+								</Cell>
+							</Item7>
+							<Item8 Class="Label">
+								<Text>广东省财政厅投资审核中心</Text>
+								<Font>
+									<Face>宋体</Face>
+									<Style>1</Style>
+									<Size>24</Size>
+								</Font>
+								<HorizontalAlignment>1</HorizontalAlignment>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>1</Row>
+									<Col>0</Col>
+									<ColSpan>6</ColSpan>
+								</Cell>
+							</Item8>
+						</Children>
+						<ColumnWidths>90,350,120,20,20,20</ColumnWidths>
+						<RowHeights>45,40,40,35</RowHeights>
+					</Item0>
+				</Children>
+				<Type>100</Type>
+			</Item0>
+			<Item1>
+				<Name>body</Name>
+				<Y>221</Y>
+				<Width>719</Width>
+				<Height>822</Height>
+				<Children ItemClass="Table">
+					<Item0>
+						<NodePath>auditdb</NodePath>
+						<X>41</X>
+						<Y>2</Y>
+						<Children>
+							<Item0 Class="Label">
+								<Text>资料名称</Text>
+								<Border>
+									<StyleText>border:1.0px solid #000000</StyleText>
+								</Border>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<HorizontalAlignment>1</HorizontalAlignment>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>1</Row>
+									<Col>1</Col>
+								</Cell>
+							</Item0>
+							<Item1 Class="Label">
+								<Text>备注</Text>
+								<Border>
+									<StyleText>border:1.0px solid #000000</StyleText>
+								</Border>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<HorizontalAlignment>1</HorizontalAlignment>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>1</Row>
+									<Col>2</Col>
+									<ColSpan>2</ColSpan>
+								</Cell>
+							</Item1>
+							<Item2 Class="RowPanel">
+								<Cell>
+									<Row>2</Row>
+									<Col>0</Col>
+									<ColSpan>4</ColSpan>
+								</Cell>
+								<Children ItemClass="Text">
+									<Item0>
+										<Variable>=$.position+1</Variable>
+										<Border>
+											<StyleText>border:1.0px solid #000000</StyleText>
+										</Border>
+										<Font>
+											<Face>仿宋_GB2312</Face>
+											<Style>0</Style>
+											<Size>16</Size>
+										</Font>
+										<HorizontalAlignment>1</HorizontalAlignment>
+										<Wordwrap>true</Wordwrap>
+										<PrintStyle>max-width:45;</PrintStyle>
+										<Cell>
+											<Row>2</Row>
+											<Col>0</Col>
+										</Cell>
+									</Item0>
+									<Item1>
+										<Variable>=$.FFileName</Variable>
+										<Border>
+											<StyleText>border:1.0px solid #000000</StyleText>
+										</Border>
+										<Font>
+											<Face>仿宋_GB2312</Face>
+											<Style>0</Style>
+											<Size>16</Size>
+										</Font>
+										<Wordwrap>true</Wordwrap>
+										<PrintStyle>auto-size:height;max-width:340;</PrintStyle>
+										<Cell>
+											<Row>2</Row>
+											<Col>1</Col>
+										</Cell>
+									</Item1>
+									<Item2>
+										<Variable>=$.FRemark</Variable>
+										<Border>
+											<StyleText>border:1.0px solid #000000</StyleText>
+										</Border>
+										<Font>
+											<Face>仿宋_GB2312</Face>
+											<Style>0</Style>
+											<Size>16</Size>
+										</Font>
+										<Wordwrap>true</Wordwrap>
+										<PrintStyle>auto-size:height;max-width:260;</PrintStyle>
+										<Cell>
+											<Row>2</Row>
+											<Col>2</Col>
+											<ColSpan>2</ColSpan>
+										</Cell>
+									</Item2>
+								</Children>
+								<NodePath>Row</NodePath>
+							</Item2>
+							<Item3 Class="Label">
+								<Text>资料提
+									交单位
+								</Text>
+								<Border>
+									<StyleText>border:1.0px solid #000000</StyleText>
+								</Border>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<HorizontalAlignment>1</HorizontalAlignment>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>0</Row>
+									<Col>2</Col>
+								</Cell>
+							</Item3>
+							<Item4 Class="Label">
+								<Text>项目
+									名称
+								</Text>
+								<Border>
+									<StyleText>border:1.0px solid #000000</StyleText>
+								</Border>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<HorizontalAlignment>1</HorizontalAlignment>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>0</Row>
+									<Col>0</Col>
+								</Cell>
+							</Item4>
+							<Item5 Class="Label">
+								<Text>序号</Text>
+								<Border>
+									<StyleText>border:1.0px solid #000000</StyleText>
+								</Border>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<HorizontalAlignment>1</HorizontalAlignment>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>1</Row>
+									<Col>0</Col>
+								</Cell>
+							</Item5>
+							<Item6 Class="Text">
+								<Variable>=fprojectName</Variable>
+								<Border>
+									<StyleText>border:1.0px solid #000000</StyleText>
+								</Border>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<Wordwrap>true</Wordwrap>
+								<Cell>
+									<Row>0</Row>
+									<Col>1</Col>
+								</Cell>
+							</Item6>
+							<Item7 Class="Text">
+								<Variable>=forganize</Variable>
+								<Border>
+									<StyleText>border:1.0px solid #000000</StyleText>
+								</Border>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<Cell>
+									<Row>0</Row>
+									<Col>3</Col>
+								</Cell>
+							</Item7>
+							<Item8 Class="Label">
+								<Text> 资料提交单位经办人： 投资审核中心经办人：</Text>
+								<Font>
+									<Face>仿宋_GB2312</Face>
+									<Style>0</Style>
+									<Size>16</Size>
+								</Font>
+								<PrintStyle>auto-size:height;bottom:10;</PrintStyle>
+								<Cell>
+									<Row>3</Row>
+									<Col>0</Col>
+									<ColSpan>4</ColSpan>
+								</Cell>
+							</Item8>
+						</Children>
+						<ColumnWidths>45,340,60,200</ColumnWidths>
+						<RowHeights>40,32,28,30</RowHeights>
+					</Item0>
+				</Children>
+				<Type>102</Type>
+			</Item1>
+			<Item2>
+				<Name>footer</Name>
+				<Y>1043</Y>
+				<Width>719</Width>
+				<Height>5</Height>
+				<Type>103</Type>
+			</Item2>
+		</Children>
+		<PageFormat>
+			<Width>793</Width>
+			<Height>1122</Height>
+			<Left>37</Left>
+			<Top>18</Top>
+			<Right>37</Right>
+			<Bottom>56</Bottom>
+		</PageFormat>
+	</Page>
+	
+	<NodeSource>
+		<Children ItemClass="DatasetNodeSource">
+			<Item0>
+				<Children ItemClass="RowNodeSource">
+					<Item0 />
+				</Children>
+				<Reader Class="SqlReader">
+					<Name>auditdb</Name>
+					<Sql>select FID,FFileName,FRemark from tblProjectFileSignInDetail
+						where FSignInId='${tableid}'</Sql>
+					<Description>select FID,FFileName,FRemark from
+						tblProjectFileSignInDetail where FSignInId='${tableid}'
+					</Description>
+					<Connection>
+						<Driver>net.sourceforge.jtds.jdbc.Driver</Driver>
+						<User>sa</User>
+						<Password>ezoa</Password>
+						<Url>jdbc:jtds:sqlserver://192.168.0.51:1433/AuditSystemDB;instance=SQLSERVER2008R2;SelectMethod=Cursor</Url>
+					</Connection>
+				</Reader>
+				<TagName>auditdb</TagName>
+			</Item0>
+		</Children>
+	</NodeSource>
+</jatools>
