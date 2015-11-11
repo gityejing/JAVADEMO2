@@ -68,9 +68,9 @@ public class BatchModifyConnectionUtil {
 	}
 	
 	public static void main(String[] args) {
-		Connection connection = Connection.CENTER;
+		Connection connection = Connection.Test10;
 		try {
-			File file = new File("E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\中心正式");
+			File file = new File("E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\10楼测试");
 			if(file.isDirectory()){
 				File[] files = file.listFiles();
 				if(files!= null && files.length>0){

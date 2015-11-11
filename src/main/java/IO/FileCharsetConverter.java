@@ -12,26 +12,26 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 
-
 public class FileCharsetConverter {
 
 	public static void main(String[] args) throws Exception {
 		String filePath = "src/main/java/IO/Dom4jControler.java";
-//		String sourceCode = "GBK";
-//		String aimCode = "UTF-8";
-//		convert(filePath,sourceCode,aimCode,new SourceFileFilter());
-		UTF8_GBK(filePath,new SourceFileFilter());
-//		GBK_UTF8(filePath,new SourceFileFilter());
+		// String sourceCode = "GBK";
+		// String aimCode = "UTF-8";
+		// convert(filePath,sourceCode,aimCode,new SourceFileFilter());
+		UTF8_GBK(filePath, new SourceFileFilter());
+		// GBK_UTF8(filePath,new SourceFileFilter());
 	}
-	
-	public static void UTF8_GBK(String filePath,FilenameFilter filter) throws Exception{
-		convert(filePath,"UTF-8","GBK",filter);
+
+	public static void UTF8_GBK(String filePath, FilenameFilter filter)
+			throws Exception {
+		convert(filePath, "UTF-8", "GBK", filter);
 	}
-	
-	public static void GBK_UTF8(String filePath,FilenameFilter filter) throws Exception{
-		convert(filePath,"GBK","UTF-8",filter);
+
+	public static void GBK_UTF8(String filePath, FilenameFilter filter)
+			throws Exception {
+		convert(filePath, "GBK", "UTF-8", filter);
 	}
-	
 
 	/**
 	 * 把指定文件或目录转换成指定的编码
@@ -110,10 +110,13 @@ public class FileCharsetConverter {
 				convert(f, fromCharsetName, toCharsetName, filter);
 			}
 		} else { // 文件
-			if (filter == null || (filter != null && filter.accept(file.getParentFile(), file.getName()))) {
-				String fileContent = getFileContentFromCharset(file,fromCharsetName);
+			if (filter == null
+					|| (filter != null && filter.accept(file.getParentFile(),
+							file.getName()))) {
+				String fileContent = getFileContentFromCharset(file,
+						fromCharsetName);
 				// 备份
-				File bakFile = new File(file.getAbsolutePath()+".bak");
+				File bakFile = new File(file.getAbsolutePath() + ".bak");
 				saveFile2Charset(bakFile, fromCharsetName, fileContent);
 				// 保存转码后的文件
 				saveFile2Charset(file, toCharsetName, fileContent);
@@ -131,12 +134,14 @@ public class FileCharsetConverter {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String getFileContentFromCharset(File file,String fromCharsetName) throws Exception {
+	public static String getFileContentFromCharset(File file,
+			String fromCharsetName) throws Exception {
 		if (!Charset.isSupported(fromCharsetName)) {
 			throw new UnsupportedCharsetException(fromCharsetName);
 		}
 		InputStream inputStream = new FileInputStream(file);
-		InputStreamReader reader = new InputStreamReader(inputStream,fromCharsetName);
+		InputStreamReader reader = new InputStreamReader(inputStream,
+				fromCharsetName);
 		char[] chs = new char[(int) file.length()];
 		reader.read(chs);
 		String str = new String(chs).trim();
@@ -157,23 +162,23 @@ public class FileCharsetConverter {
 	 */
 	public static void saveFile2Charset(File file, String toCharsetName,
 			String content) throws Exception {
-		
+
 		if (!Charset.isSupported(toCharsetName)) {
 			throw new UnsupportedCharsetException(toCharsetName);
 		}
 		// 根据转码后的内容生成新的文件
 		OutputStream outputStream = new FileOutputStream(file);
-		OutputStreamWriter outWrite = new OutputStreamWriter(outputStream,toCharsetName);
+		OutputStreamWriter outWrite = new OutputStreamWriter(outputStream,
+				toCharsetName);
 		outWrite.write(content);
 		outWrite.close();
 	}
 }
 
-class SourceFileFilter implements FilenameFilter{
+class SourceFileFilter implements FilenameFilter {
 	@Override
 	public boolean accept(File dir, String name) {
 		return name.endsWith("java");
 	}
-	
-}
 
+}
