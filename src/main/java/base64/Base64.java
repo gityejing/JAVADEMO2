@@ -12,7 +12,8 @@ public class Base64 {
  
     /**
      * data[]进行编码
-     * 
+     * shishi
+     * myeclipse提交
      * @param data
      * @return
      */
@@ -21,7 +22,7 @@ public class Base64 {
         int len = data.length;
         StringBuffer buf = new StringBuffer(data.length * 3 / 2);
  
-        int end = len - 3;
+        int end  = len - 3;
         int i = start;
         int n = 0;
  
