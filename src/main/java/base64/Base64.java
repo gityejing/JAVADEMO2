@@ -13,6 +13,7 @@ public class Base64 {
     /**
      * data[]进行编码
      * shishi
+     * myeclipse提交
      * @param data
      * @return
      */
