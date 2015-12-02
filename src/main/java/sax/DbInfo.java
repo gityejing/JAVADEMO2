@@ -1,6 +1,6 @@
 package sax;
 
-public enum Connection {
+public enum DbInfo {
 	
 	Local("net.sourceforge.jtds.jdbc.Driver","sa","ezoa","jdbc:jtds:sqlserver://192.168.0.51:1433/AuditSystemDB;instance=SQLSERVER2008R2;SelectMethod=Cursor"),
 	TEST("net.sourceforge.jtds.jdbc.Driver","sa","ezoa","jdbc:jtds:sqlserver://192.168.0.24:1433/AuditSystemDB;SelectMethod=Cursor"),
@@ -13,7 +13,7 @@ public enum Connection {
 	String password;
 	String url;
 	
-	private Connection(String driver, String user, String password, String url) {
+	private DbInfo(String driver, String user, String password, String url) {
 		this.driver = driver;
 		this.user = user;
 		this.password = password;

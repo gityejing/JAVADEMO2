@@ -6,8 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -65,27 +67,42 @@ public class BatchModifyConnectionUtil {
 		}
 		XMLOutputter output = new XMLOutputter();
 		output.output(document, new FileOutputStream(file));
+		System.out.println(file.getAbsolutePath());
+	}
+	
+	static Map<DbInfo, String> map = new HashMap<DbInfo, String>();
+	static{
+		map.put(DbInfo.Test10, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\10楼测试");
+		map.put(DbInfo.TEST, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\测试");
+		map.put(DbInfo.Local, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\本地");
+		map.put(DbInfo.CENTER, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\中心正式");
+		map.put(DbInfo.ZHONGJIE, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\中介正式");
 	}
 	
 	public static void main(String[] args) {
-		Connection connection = Connection.Test10;
-		try {
-			File file = new File("E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\10楼测试");
-			if(file.isDirectory()){
-				File[] files = file.listFiles();
-				if(files!= null && files.length>0){
-					for (File file2 : files) {
-						BatchModifyConnectionUtil.edit(file2,connection.driver,connection.user,connection.password,connection.url);
+		
+		
+		for (Map.Entry<DbInfo, String> entry : map.entrySet()) {
+			DbInfo connection = entry.getKey();
+			try {
+				File file = new File(entry.getValue());
+				if(file.isDirectory()){
+					File[] files = file.listFiles();
+					if(files!= null && files.length>0){
+						for (File file2 : files) {
+							BatchModifyConnectionUtil.edit(file2,connection.driver,connection.user,connection.password,connection.url);
+						}
 					}
 				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (JDOMException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (JDOMException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		
 	}
 
 }
