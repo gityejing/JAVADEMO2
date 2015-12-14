@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.examples.HtmlToPlainText;
 import org.jsoup.helper.StringUtil;
-import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
@@ -23,21 +22,20 @@ public class GetHtml {
 		final String selector = "a";
 
 		// fetch the specified URL and parse to a HTML DOM
-		Document doc = Jsoup.connect(url).userAgent(userAgent).timeout(timeout)
-				.get();
-
+		Document doc = Jsoup.connect(url).userAgent(userAgent).timeout(timeout).get();
 		HtmlToPlainText formatter = new HtmlToPlainText();
-
 		if (selector != null) {
-			Elements elements = doc.select(selector); // get each element that
-														// matches the CSS
-														// selector
+			// get each element that
+			// matches the CSS
+			// selector
+			Elements elements = doc.select(selector); 
 			for (Element element : elements) {
-				String plainText = formatter.getPlainText(element); // format
-																	// that
-																	// element
-																	// to plain
-																	// text
+				// format
+				// that
+				// element
+				// to plain
+				// text
+				String plainText = formatter.getPlainText(element); 
 				System.out.println(plainText);
 			}
 		} else { // format the whole doc

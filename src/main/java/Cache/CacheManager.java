@@ -1,9 +1,12 @@
 package Cache;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class CacheManager {
-	private static HashMap cacheMap = new HashMap();
+	private static HashMap<String, Object> cacheMap = new HashMap<String, Object>();
 
 	// 单实例构造方法
 	private CacheManager() {
@@ -64,12 +67,12 @@ public class CacheManager {
 
 	// 清除某一类特定缓存,通过遍历HASHMAP下的所有对象，来判断它的KEY与传入的TYPE是否匹配
 	public synchronized static void clearAll(String type) {
-		Iterator i = cacheMap.entrySet().iterator();
+		Iterator<Map.Entry<String, Object>> i = cacheMap.entrySet().iterator();
 		String key;
 		ArrayList<String> arr = new ArrayList<String>();
 		try {
 			while (i.hasNext()) {
-				java.util.Map.Entry entry = (java.util.Map.Entry) i.next();
+				Map.Entry<String, Object> entry = i.next();
 				key = (String) entry.getKey();
 				if (key.startsWith(type)) { // 如果匹配则删除掉
 					arr.add(key);
