@@ -22,12 +22,11 @@ public class DownLoadTest {
         DownLoadUtils du = new DownLoadUtils(urlPath);
         du.downLoadResaource(new DownLoadUtils.ResourceDownLoad() {
             @Override
-            public void getResource(Object o) {
+            public void getResource(byte[] o) {
                 FileOutputStream outputStream = null;
                 try {
-                    byte[] b = (byte[]) o;
                     outputStream = new FileOutputStream(new File("d:/a.jpg"));
-                    outputStream.write(b, 0, b.length);
+                    outputStream.write(o, 0, o.length);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(DownLoadTest.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {

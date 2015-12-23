@@ -23,13 +23,13 @@ import org.xml.sax.InputSource;
  * @author Administrator
  */
 public class DownLoadUtils {
+	
+    private String urlPath;
 
-    String urlPath;
-
-    public DownLoadUtils(String urlPath) {
-        this.urlPath = urlPath;
-    }
-
+    /**
+     * 下载文件
+     * @param callback
+     */
     public void downLoadResaource(ResourceDownLoad callback) {
         Object o = null;
         URL url = null;
@@ -70,7 +70,16 @@ public class DownLoadUtils {
         }
     }
 
+    /**
+     * 具体下载的接口
+     * @author Administrator
+     *
+     */
     public interface ResourceDownLoad {
-        public void getResource(Object o);
+        public void getResource(byte[] o);
+    }
+    
+    public DownLoadUtils(String urlPath) {
+        this.urlPath = urlPath;
     }
 }

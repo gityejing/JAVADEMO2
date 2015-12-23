@@ -19,7 +19,7 @@ public class ClientTcpSend {
                 socket = new Socket();
                 socket.connect(new InetSocketAddress("127.0.0.1", 33456),10 * 1000);
                 dos = new DataOutputStream(socket.getOutputStream());
-                File file = new File("./1920.jpg");
+                File file = new File("src/main/java/socket/fileTransfer/file.txt");
                 fis = new FileInputStream(file);
                 sendBytes = new byte[1024];
                 while ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0) {

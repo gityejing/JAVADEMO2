@@ -31,17 +31,21 @@ public class ServerTcpListener implements Runnable {
     }
 
     public void run() {
+    	
     }
 
+    /**
+     * 从访问者（客户端）那里接收数据
+     * @param socket 服务单获取到的客服端访问对象
+     */
     public static void receiveFile(Socket socket) {
-        byte[] inputByte = null;
-        int length = 0;
+        byte[] inputByte = null;int length = 0;
         DataInputStream dis = null;
         FileOutputStream fos = null;
         try {
             try {
                 dis = new DataInputStream(socket.getInputStream());
-                fos = new FileOutputStream(new File("./cc1.jpg"));
+                fos = new FileOutputStream(new File(System.currentTimeMillis()+".txt"));
                 inputByte = new byte[1024];
                 System.out.println("开始接收数据...");
                 while ((length = dis.read(inputByte, 0, inputByte.length)) > 0) {
@@ -59,6 +63,7 @@ public class ServerTcpListener implements Runnable {
                     socket.close();
             }
         } catch (Exception e) {
+        	
         }
     }
 }
