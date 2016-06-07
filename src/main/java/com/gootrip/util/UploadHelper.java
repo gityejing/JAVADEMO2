@@ -51,7 +51,7 @@ public class UploadHelper {
 	public static String getNowFilePath(String basePath){
 		SimpleDateFormat formater =new SimpleDateFormat("yyyy-MM-dd");
 		String pathName = formater.format(new Date());
-		File dir = new File(basePath + separator + pathName);
+		File dir = new File(basePath + File.separator + pathName); 
 		if(!dir.exists())
 			dir.mkdir();
 		return pathName;
@@ -84,7 +84,7 @@ public class UploadHelper {
    	 */
 	public void dumpAttributeToFile(String attributeValue, String fileName, String filePath) throws Exception
 	{
-		File outputFile = new File(filePath + separator + fileName);
+		File outputFile = new File(filePath + File.separator + fileName);
 		PrintWriter pw = new PrintWriter(new FileWriter(outputFile));
         pw.println(attributeValue);    
         pw.close();
@@ -100,17 +100,15 @@ public class UploadHelper {
 	{
 		long timer = System.currentTimeMillis();
 		
-		File outputFile = new File(filePath + separator + fileName);
+		File outputFile = new File(filePath + File.separator + fileName);
 		if(outputFile.exists())
 		{
 			log.info("The file allready exists so we don't need to dump it again..");
 			return;
 		}
 		
-		FileOutputStream fis = new FileOutputStream(outputFile);
-		BufferedOutputStream bos = new BufferedOutputStream(fis);
-		
 		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outputFile));
 		
 		int character;
         while ((character = bis.read()) != -1)
@@ -118,9 +116,7 @@ public class UploadHelper {
 			bos.write(character);
         }
 		bos.flush();
-		
         bis.close();
-		fis.close();
 		bos.close();
 		log.info("Time for dumping file " + fileName + ":" + (System.currentTimeMillis() - timer));
 	}
@@ -138,7 +134,7 @@ public class UploadHelper {
 		log.info("fileName:" + fileName);
 		log.info("thumbnailFile:" + thumbnailFile);
 		
-		File outputFile = new File(filePath + separator + thumbnailFile);
+		File outputFile = new File(filePath + File.separator + thumbnailFile);
 		if(outputFile.exists())
 		{
 			log.info("The file allready exists so we don't need to dump it again..");
@@ -146,7 +142,7 @@ public class UploadHelper {
 		}
 		
 		ThumbnailGenerator tg = new ThumbnailGenerator();
-		tg.transform(filePath + separator + fileName, filePath + separator + thumbnailFile, width, height, quality);
+		tg.transform(filePath + File.separator + fileName, filePath + File.separator + thumbnailFile, width, height, quality);
 		
 		log.info("Time for dumping file " + fileName + ":" + (System.currentTimeMillis() - timer));
 	}

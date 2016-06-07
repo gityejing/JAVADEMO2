@@ -79,12 +79,12 @@ public class EncrypDES {
 	 */
 	public static void main(String[] args) throws Exception {
 		EncrypDES de1 = new EncrypDES();
-		String msg = "郭XX-搞笑相声全集";
+		String msg = "123456";
 		byte[] encontent = de1.Encrytor(msg);
 		byte[] decontent = de1.Decryptor(encontent);
 		System.out.println("明文是:" + msg);
-		System.out.println("加密后:" + new String(encontent));
-		System.out.println("解密后:" + new String(decontent));
+		System.out.println("加密后:" + new String(encontent,"utf-8"));
+		System.out.println("解密后:" + new String(decontent,"utf-8"));
 	}
 
 }

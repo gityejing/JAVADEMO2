@@ -19,6 +19,7 @@ public class UdpServer {
 
 	public void init() throws IOException {
 		try (DatagramSocket socket = new DatagramSocket(PORT)) {// 创建DatagramSocket对象
+			socket.setSoTimeout(1000);
 			// 采用循环接收数据
 			for (int i = 0; i < 1000; i++) {
 				// 读取Socket中的数据，读到的数据放入inPacket封装的数组里

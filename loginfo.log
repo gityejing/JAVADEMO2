@@ -70,3 +70,6 @@
 [2015-05-02 17:22:37]INFO  jodd.db.person.DBoomTest(line/:215) -data8
 [2015-05-02 17:22:37]INFO  jodd.db.person.DBoomTest(line/:215) -data9
 [2015-05-02 17:22:37]INFO  jodd.db.person.DBoomTest(line/:215) -data
+[2015-12-14 15:35:30]INFO  Cache.Test(line/:13) -false
+[2015-12-14 15:35:30]INFO  Cache.Test(line/:26) -删除前的大小：17
+[2015-12-14 15:35:30]INFO  Cache.Test(line/:29) -删除后的大小：16

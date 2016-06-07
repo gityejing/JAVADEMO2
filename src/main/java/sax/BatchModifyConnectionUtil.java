@@ -72,15 +72,15 @@ public class BatchModifyConnectionUtil {
 	
 	static Map<DbInfo, String> map = new HashMap<DbInfo, String>();
 	static{
-		map.put(DbInfo.Test10, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\10楼测试");
 		map.put(DbInfo.TEST, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\测试");
 		map.put(DbInfo.Local, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\本地");
-		map.put(DbInfo.CENTER, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\中心正式");
-		map.put(DbInfo.ZHONGJIE, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\中介正式");
+		map.put(DbInfo.M122, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\10.96.245.122");
+		map.put(DbInfo.M115, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\10.96.245.115");
+		map.put(DbInfo.M20, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\192.168.102.20");
+		map.put(DbInfo.M21, "E:\\Workspaces\\auditScp_1.0\\WebRoot\\WEB-INF\\打印模板\\192.168.102.21");
 	}
 	
 	public static void main(String[] args) {
-		
 		
 		for (Map.Entry<DbInfo, String> entry : map.entrySet()) {
 			DbInfo connection = entry.getKey();
