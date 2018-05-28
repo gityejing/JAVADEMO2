@@ -2,5 +2,6 @@ eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/java/IO=GBK
 encoding//src/main/java/IO/FileCharsetConverter.java=UTF-8
+encoding//src/main/java/concurrent/multThreadDownload/DownLoadUtil.java=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

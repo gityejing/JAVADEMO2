@@ -1,6 +1,7 @@
-package concurrent;
+package concurrent.multThreadDownload;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
@@ -11,31 +12,38 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DownLoadUtil {
-	private static final int TCOUNT = 10;
-	private CountDownLatch latch = new CountDownLatch(TCOUNT);// ����ͬ����
+	
+	private static final int TCOUNT = 10;// 线程数也是文件分段数
+	private CountDownLatch latch = new CountDownLatch(TCOUNT);
 	private long completeLength = 0;
-	private long fileLength;// �ļ����ֽڳ���
+	private long fileLength;
 
-	public void download(String urlAdress) throws Exception {
+	public void download(String urlAdress,File target) throws Exception {
 		ExecutorService service = Executors.newFixedThreadPool(TCOUNT);
+		
 		URL url = new URL(urlAdress);
 		URLConnection cn = url.openConnection();
-		cn.setRequestProperty("Referer", "http:// www.2cto.com ");
-		fileLength = cn.getContentLength();// �ļ�����
-		long packageLength = fileLength / TCOUNT;// ����ÿһ���߳����ص��ļ��εĴ�С��ȡ����������޷������Ļ������Ҫ���һ���߳�
-		long leftLength = fileLength % TCOUNT;
-		RandomAccessFile file = new RandomAccessFile("test.rar", "rw");
-		Range<Long> r = new Range<Long>(0L,packageLength);
-		// ����ÿ���߳������ļ��Ŀ�ʼ�ͽ���λ��
-		long pos = 0;// ÿ�������̣߳����صĿ�ʼλ��
-		long endPos = pos + packageLength;// ÿ�������̣߳����صĽ���λ��
+		
+		fileLength = cn.getContentLength();
+		long packageLength = fileLength / TCOUNT;// 每个段的大小
+		long leftLength = fileLength % TCOUNT;// 分段之后剩余的字节数  
+		
+		RandomAccessFile file = new RandomAccessFile(target, "rw");
+		
+		// 初始偏移量
+		long pos = 0;
+		long endPos = pos + packageLength;
+		
 		for (int i = 0; i < TCOUNT; i++) {
 			if (leftLength > 0) {
 				endPos++;
 				leftLength--;
 			}
+			System.out.println((i+1)+":"+pos+"----"+endPos);
 			service.execute(new DownLoadThread(url, file, pos, endPos));
-			pos = endPos;
+			
+			pos = endPos+1;
+			endPos = pos+packageLength-1;
 		}
 		latch.await();
 		service.shutdown();
@@ -80,33 +88,6 @@ public class DownLoadUtil {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-	
-	protected class Range<T> {
-		T index;
-		T length;
-		
-		public Range() {
-			super();
-		}
-		
-		public Range(T index, T length) {
-			super();
-			this.index = index;
-			this.length = length;
-		}
-		public T getIndex() {
-			return index;
-		}
-		public void setIndex(T index) {
-			this.index = index;
-		}
-		public T getLength() {
-			return length;
-		}
-		public void setLength(T length) {
-			this.length = length;
 		}
 	}
 }
