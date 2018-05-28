@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class CacheManager {
+	
 	private static HashMap<String, Object> cacheMap = new HashMap<String, Object>();
 
 	// 单实例构造方法
@@ -152,11 +153,11 @@ public class CacheManager {
 	// 获取指定的类型的大小
 	public static int getCacheSize(String type) {
 		int k = 0;
-		Iterator i = cacheMap.entrySet().iterator();
+		Iterator<Map.Entry<String, Object>> i = cacheMap.entrySet().iterator();
 		String key;
 		try {
 			while (i.hasNext()) {
-				java.util.Map.Entry entry = (java.util.Map.Entry) i.next();
+				Map.Entry<String,Object> entry = i.next();
 				key = (String) entry.getKey();
 				if (key.indexOf(type) != -1) { // 如果匹配则删除掉
 					k++;
@@ -170,11 +171,11 @@ public class CacheManager {
 
 	// 获取缓存对象中的所有键值名称
 	public static ArrayList<String> getCacheAllkey() {
-		ArrayList a = new ArrayList();
+		ArrayList<String> a = new ArrayList<String>();
 		try {
-			Iterator i = cacheMap.entrySet().iterator();
+			Iterator<Map.Entry<String, Object>> i = cacheMap.entrySet().iterator();
 			while (i.hasNext()) {
-				java.util.Map.Entry entry = (java.util.Map.Entry) i.next();
+				Map.Entry<String,Object> entry = i.next();
 				a.add((String) entry.getKey());
 			}
 		} catch (Exception ex) {
@@ -184,19 +185,21 @@ public class CacheManager {
 	}
 
 	// 获取缓存对象中指定类型 的键值名称
+	@SuppressWarnings("finally")
 	public static ArrayList<String> getCacheListkey(String type) {
-		ArrayList a = new ArrayList();
+		ArrayList<String> a = new ArrayList<String>();
 		String key;
 		try {
-			Iterator i = cacheMap.entrySet().iterator();
+			Iterator<Map.Entry<String, Object>> i = cacheMap.entrySet().iterator();
 			while (i.hasNext()) {
-				java.util.Map.Entry entry = (java.util.Map.Entry) i.next();
+				Map.Entry<String,Object> entry = i.next();
 				key = (String) entry.getKey();
 				if (key.indexOf(type) != -1) {
 					a.add(key);
 				}
 			}
 		} catch (Exception ex) {
+			
 		} finally {
 			return a;
 		}

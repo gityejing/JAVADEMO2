@@ -25,7 +25,7 @@ public class ZipUtils {
 
     /**
      * 批量压缩文件（夹）
-     *
+     * 
      * @param resFileList 要压缩的文件（夹）列表
      * @param zipFile 生成的压缩文件
      * @throws java.io.IOException 当压缩过程出错时抛出

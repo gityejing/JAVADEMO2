@@ -15,8 +15,8 @@ public class ReflectUtils {
             String firstLetter = filed.getName().substring(0, 1).toUpperCase();
             String getMethodName = "get" + firstLetter + filed.getName().substring(1);
             String setMethodName = "set" + firstLetter + filed.getName().substring(1);
-            Method getMethod = classType.getMethod(getMethodName, new Class[]{});
-            Method setMethod = classType.getMethod(setMethodName, new Class[]{filed.getType()});
+            Method getMethod = classType.getMethod(getMethodName, new Class[]{});// get 方法没有参数
+            Method setMethod = classType.getMethod(setMethodName, new Class[]{filed.getType()});// set 方法有参数
             Object value = getMethod.invoke(resource,new Object[]{});
             setMethod.invoke(newObject, new Object[]{value});
         }

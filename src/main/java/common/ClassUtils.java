@@ -5,12 +5,10 @@
  */
 package common;
 
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
@@ -37,7 +35,6 @@ public class ClassUtils {
                     if (s.trim().equals("")) {
                         return null;
                     }
-
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     try {
                         return sdf.parse(s);
@@ -61,12 +58,10 @@ public class ClassUtils {
                     if (value == null) {
                         return null;
                     }
-                    
                     String s = (String) value;
                     if (s.trim().equals("")) {
                         return null;
                     }
-
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     try {
                         return sdf.parse(s);

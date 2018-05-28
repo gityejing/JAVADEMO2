@@ -17,6 +17,7 @@ public class ReflectTest {
     public void test_copy() throws Exception {
         Person person = new Person("andy", 1);
         Person copyPerson = (Person) ReflectUtils.copy(person);
+        System.out.println(copyPerson);
     }
 }
 

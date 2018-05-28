@@ -19,8 +19,7 @@ public class CompressUtil {
 	}
 
 	private void zip(String zipFileName, File inputFile) throws Exception {
-		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(
-				zipFileName));
+		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileName));
 		zip(out, inputFile, "");
 		System.out.println("zip done");
 		out.close();
