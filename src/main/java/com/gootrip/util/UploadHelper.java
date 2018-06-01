@@ -23,148 +23,138 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class UploadHelper {
-	
+
 	public final static String separator = "/";
 	public final static String split = "_";
-	
+
 	protected final Log log = LogFactory.getLog(getClass());
 
-	class FilenameFilterImpl implements FilenameFilter 
-	{
+	class FilenameFilterImpl implements FilenameFilter {
 		private String filter = ".";
-		
-		public FilenameFilterImpl(String aFilter)
-		{
+
+		public FilenameFilterImpl(String aFilter) {
 			filter = aFilter;
 		}
-		
-    	public boolean accept(File dir, String name) 
-    	{
-        	return name.startsWith(filter);
-    	}
+
+		public boolean accept(File dir, String name) {
+			return name.startsWith(filter);
+		}
 	};
+
 	/**
 	 * 获得当前的文件路径（通过当前日期生成）
+	 * 
 	 * @param basePath
 	 * @return
 	 */
-	public static String getNowFilePath(String basePath){
-		SimpleDateFormat formater =new SimpleDateFormat("yyyy-MM-dd");
+	public static String getNowFilePath(String basePath) {
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 		String pathName = formater.format(new Date());
-		File dir = new File(basePath + File.separator + pathName); 
-		if(!dir.exists())
+		File dir = new File(basePath + File.separator + pathName);
+		if (!dir.exists())
 			dir.mkdir();
 		return pathName;
 	}
-	
-	public static String getNewFileName(String oldFileName){
+
+	public static String getNewFileName(String oldFileName) {
 		oldFileName = oldFileName.replaceAll("'", "").replaceAll("\"", "");
 		Calendar date = Calendar.getInstance();
 		int hour = date.get(Calendar.HOUR_OF_DAY);
 		int minute = date.get(Calendar.MINUTE);
 		int second = date.get(Calendar.SECOND);
-		if(oldFileName.length()>30)
-			oldFileName = oldFileName.substring(oldFileName.length()-30);
-		return (new Integer(hour*3600 + minute*60 + second).toString()) 
-					+ split + oldFileName;
+		if (oldFileName.length() > 30)
+			oldFileName = oldFileName.substring(oldFileName.length() - 30);
+		return (new Integer(hour * 3600 + minute * 60 + second).toString()) + split + oldFileName;
 	}
-	
-	public static String getThumbFileName(String fileName){
+
+	public static String getThumbFileName(String fileName) {
 		int pos = fileName.lastIndexOf(".");
-		if(pos>=0)
+		if (pos >= 0)
 			return fileName.substring(0, pos) + "s" + fileName.substring(pos);
 		else
-			return	fileName + "s";
+			return fileName + "s";
 	}
-	
-   	/**
-   	 * This method checks if the given file exists on disk. If it does it's ignored because
-   	 * that means that the file is allready cached on the server. If not we dump
-   	 * the text on it.
-   	 */
-	public void dumpAttributeToFile(String attributeValue, String fileName, String filePath) throws Exception
-	{
+
+	/**
+	 * This method checks if the given file exists on disk. If it does it's
+	 * ignored because that means that the file is allready cached on the
+	 * server. If not we dump the text on it.
+	 */
+	public void dumpAttributeToFile(String attributeValue, String fileName, String filePath) throws Exception {
 		File outputFile = new File(filePath + File.separator + fileName);
 		PrintWriter pw = new PrintWriter(new FileWriter(outputFile));
-        pw.println(attributeValue);    
-        pw.close();
+		pw.println(attributeValue);
+		pw.close();
 	}
-	
- 	/**
- 	 * 保存文件
-   	 * This method checks if the given file exists on disk. If it does it's ignored because
-   	 * that means that the file is allready cached on the server. If not we take out the stream from the 
-   	 * digitalAsset-object and dumps it.
-   	 */
-	public void dumpAsset(File file, String fileName, String filePath) throws Exception
-	{
+
+	/**
+	 * 保存文件 This method checks if the given file exists on disk. If it does it's
+	 * ignored because that means that the file is allready cached on the
+	 * server. If not we take out the stream from the digitalAsset-object and
+	 * dumps it.
+	 */
+	public void dumpAsset(File file, String fileName, String filePath) throws Exception {
 		long timer = System.currentTimeMillis();
-		
+
 		File outputFile = new File(filePath + File.separator + fileName);
-		if(outputFile.exists())
-		{
+		if (outputFile.exists()) {
 			log.info("The file allready exists so we don't need to dump it again..");
 			return;
 		}
-		
+
 		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
 		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outputFile));
-		
+
 		int character;
-        while ((character = bis.read()) != -1)
-        {
+		while ((character = bis.read()) != -1) {
 			bos.write(character);
-        }
+		}
 		bos.flush();
-        bis.close();
+		bis.close();
 		bos.close();
 		log.info("Time for dumping file " + fileName + ":" + (System.currentTimeMillis() - timer));
 	}
 
 	/**
-	 * 保存缩略图
-	 * This method checks if the given file exists on disk. If it does it's ignored because
-	 * that means that the file is allready cached on the server. If not we take out the stream from the 
-	 * digitalAsset-object and dumps a thumbnail to it.
+	 * 保存缩略图 This method checks if the given file exists on disk. If it does
+	 * it's ignored because that means that the file is allready cached on the
+	 * server. If not we take out the stream from the digitalAsset-object and
+	 * dumps a thumbnail to it.
 	 */
-   	
-	public void dumpAssetThumbnail(File file, String fileName, String thumbnailFile, String filePath, int width, int height, int quality) throws Exception
-	{
+
+	public void dumpAssetThumbnail(File file, String fileName, String thumbnailFile, String filePath, int width,
+			int height, int quality) throws Exception {
 		long timer = System.currentTimeMillis();
 		log.info("fileName:" + fileName);
 		log.info("thumbnailFile:" + thumbnailFile);
-		
+
 		File outputFile = new File(filePath + File.separator + thumbnailFile);
-		if(outputFile.exists())
-		{
+		if (outputFile.exists()) {
 			log.info("The file allready exists so we don't need to dump it again..");
 			return;
 		}
-		
+
 		ThumbnailGenerator tg = new ThumbnailGenerator();
-		tg.transform(filePath + File.separator + fileName, filePath + File.separator + thumbnailFile, width, height, quality);
-		
+		tg.transform(filePath + File.separator + fileName, filePath + File.separator + thumbnailFile, width, height,
+				quality);
+
 		log.info("Time for dumping file " + fileName + ":" + (System.currentTimeMillis() - timer));
 	}
-	
+
 	/**
-	 * This method removes all images in the digitalAsset directory which belongs to a certain digital asset.
+	 * This method removes all images in the digitalAsset directory which
+	 * belongs to a certain digital asset.
 	 */
-	public void deleteDigitalAssets(String filePath, String filePrefix) throws Exception
-	{ 
-		try
-		{
+	public void deleteDigitalAssets(String filePath, String filePrefix) throws Exception {
+		try {
 			File assetDirectory = new File(filePath);
-			File[] files = assetDirectory.listFiles(new FilenameFilterImpl(filePrefix)); 	
-			for(int i=0; i<files.length; i++)
-			{
+			File[] files = assetDirectory.listFiles(new FilenameFilterImpl(filePrefix));
+			for (int i = 0; i < files.length; i++) {
 				File file = files[i];
 				log.info("Deleting file " + file.getPath());
 				file.delete();
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			log.error("Could not delete the assets for the digitalAsset " + filePrefix + ":" + e.getMessage(), e);
 		}
 	}

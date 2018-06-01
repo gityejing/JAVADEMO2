@@ -1,4 +1,4 @@
-package concurrent;
+package concurrent.syn;
 
 import java.util.Random;
 import java.util.concurrent.Semaphore;
@@ -7,6 +7,8 @@ public class SemaphoreTest {
 	private final static Semaphore MAX_SEMA_PHORE = new Semaphore(10);
 
 	public static void main(String[] args) {
+		
+		// 100个线程，10个信号量 
 		for (int i = 0; i < 100; i++) {
 			final int num = i;
 			final Random radom = new Random();

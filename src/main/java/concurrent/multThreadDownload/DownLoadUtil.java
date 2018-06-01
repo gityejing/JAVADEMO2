@@ -5,11 +5,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.apache.tools.ant.taskdefs.condition.Http;
+import org.bouncycastle.util.encoders.UrlBase64;
 
 public class DownLoadUtil {
 	
@@ -18,7 +22,15 @@ public class DownLoadUtil {
 	private long completeLength = 0;
 	private long fileLength;
 
-	public void download(String urlAdress,File target) throws Exception {
+	/**
+	 * 从网络上下载数据到指定的文件
+	 * @param urlAdress 网络地址
+	 * @param target 目标文件
+	 * @throws IOException 
+	 * @throws InterruptedException 
+	 * @throws Exception
+	 */
+	public void download(String urlAdress,File target) throws IOException, InterruptedException {
 		ExecutorService service = Executors.newFixedThreadPool(TCOUNT);
 		
 		URL url = new URL(urlAdress);
@@ -41,7 +53,6 @@ public class DownLoadUtil {
 			}
 			System.out.println((i+1)+":"+pos+"----"+endPos);
 			service.execute(new DownLoadThread(url, file, pos, endPos));
-			
 			pos = endPos+1;
 			endPos = pos+packageLength-1;
 		}
@@ -50,6 +61,7 @@ public class DownLoadUtil {
 	}
 	
 	protected class DownLoadThread implements Runnable {
+		
 		private URL url;
 		private RandomAccessFile file;
 		private long from;
