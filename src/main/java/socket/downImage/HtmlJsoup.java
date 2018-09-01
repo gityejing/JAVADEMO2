@@ -1,4 +1,4 @@
-package downImage;
+package socket.downImage;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -109,9 +109,9 @@ public class HtmlJsoup {
 		}
 
 	}
-
-	// 执行测试程序代码
-	public static void main(String[] args) {
+	
+	
+	public static void downImages() {
 //		Scanner input = new Scanner(System.in);
 //		System.out.print("请输入网页地址：");
 //		String url = input.nextLine();
@@ -139,8 +139,19 @@ public class HtmlJsoup {
 				downImages(filePath, imgSrc);
 			}
 		}
+		
+		
 
 		System.out.println("-------------------------下载完毕！----------------------------");
+	}
+	
+	public static void downFile() {
+		
+	}
 
+	// 执行测试程序代码
+	public static void main(String[] args) {
+
+		downImages("http://dl94.80s.im:920/1701/[心LZ2]第25集/[心LZ2]第25集_bd.mp4", "d://imags/[心LZ2]第25集_bd.mp4");
 	}
 }
